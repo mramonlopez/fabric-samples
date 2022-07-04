@@ -13,7 +13,7 @@ jq . $CHAINCODE_METADATA_DIR/metadata.json 1>&2
 GO_PACKAGE_PATH="$(jq -r .path "$CHAINCODE_METADATA_DIR/metadata.json")"
 if [ -f "$CHAINCODE_SOURCE_DIR/src/go.mod" ]; then
     cd "$CHAINCODE_SOURCE_DIR/src"
-    go build -v -mod=readonly -o "$BUILD_OUTPUT_DIR/chaincode" "$GO_PACKAGE_PATH" || exit $?
+    go build -v -mod=vendor -o "$BUILD_OUTPUT_DIR/chaincode" "$GO_PACKAGE_PATH" || exit $?
 else
     GO111MODULE=off go build -v  -o "$BUILD_OUTPUT_DIR/chaincode" "$GO_PACKAGE_PATH" || exit $?
 fi
